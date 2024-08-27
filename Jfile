@@ -23,19 +23,19 @@ pipeline {
 //                sh 'cp target/Project1.war /home/chaitanya/Documents/Devops-Tool/apache-tomcat-9.0.93/webapps'
 //                }
 //         }
-	stage(' Choice Parameter') {
-	      steps{
-		script {
-		 if ( "${env.Parameter}" == 'QA' ){
-		    sh 'cp target/Project1.war /home/chaitanya/Documents/Devops-Tool/apache-tomcat-9.0.93/webapps'
-		 }
-		 echo "Deployment Has Been Made On QA"
-		 
-		 efif ( "${env.Parameter}" == 'UAT' ){
-		    sh 'cp target/Project1.war /home/chaitanya/Documents/Devops-Tool/apache-tomcat-9.0.93/webapps'
-		 }
-		 echo "Deployment Has Been Made On UAT"
-		 fi
+	stage('Deployment'){
+		    steps {
+			script {
+			 if ( "${env.Parameter}" == 'QA' ){
+        	sh 'cp target/Project1.war /home/chaitanya/Documents/Devops-Tool/apache-tomcat-9.0.93/webapps'
+        	echo "deployment has been done on QA!"
+			 }
+			elif ( "${env.Parameter}" == 'UAT' ){
+    		sh 'cp target/Project1.war /home/chaitanya/Documents/Devops-Tool/apache-tomcat-9.0.93/webapps'
+    		echo "deployment has been done on UAT!"
+			}
+			echo "deployment has been done!"
+			fi
 		}
 	    }
 	}
