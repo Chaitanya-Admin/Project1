@@ -1,10 +1,7 @@
 pipeline {
     agent any
-//	triggers {
-//  	pollSCM '* * * * *'
-//	}
 	parameters {
-	 choice choices: ['DEV', 'QA', 'UAT'], name: 'Parameter'
+	 choice ( name: 'Parameter', choices: ['DEV', 'QA', 'UAT'], description: 'Pick Environment value')
 	}
 
     stages {
@@ -17,12 +14,8 @@ pipeline {
             steps {
                 sh 'mvn install'
                 }
-         }
-//         stage('Deployment'){
-//            steps {
-//                sh 'cp target/Project1.war /home/chaitanya/Documents/Devops-Tool/apache-tomcat-9.0.93/webapps'
-//                }
-//         }
+                }
+         
 	stage('Deployment'){
 		    steps {
 			script {
@@ -30,12 +23,11 @@ pipeline {
         	sh 'cp target/Project1.war /home/chaitanya/Documents/Devops-Tool/apache-tomcat-9.0.93/webapps'
         	echo "deployment has been done on QA!"
 			 }
-			elif ( "${env.Parameter}" == 'UAT' ){
+			else if ( "${env.Parameter}" == 'UAT' ){
     		sh 'cp target/Project1.war /home/chaitanya/Documents/Devops-Tool/apache-tomcat-9.0.93/webapps'
     		echo "deployment has been done on UAT!"
 			}
 			echo "deployment has been done!"
-			fi
 		}
 	    }
 	}
